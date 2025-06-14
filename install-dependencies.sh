@@ -3,7 +3,7 @@ read -p    "->] Install Intel Package [Y/n] : " intelpkg
 echo    "--------------------------------------------------------"
 case $intelpkg in
 Y|y|Yes|YES|yes)
-sudo pacman -S vulkan-intel intel-ucode intel-media-driver intel-media-sdk
+sudo pacman -S vulkan-intel intel-ucode intel-media-driver intel-media-sdk intel-gpu-tools libva-intel-driver intel-hybrid-codec-driver-git libvpl
 # Teks yang ingin ditambahkan
 block_to_add=$(cat <<EOF
 options i915 enable_guc=3
@@ -24,7 +24,7 @@ fi
 ;;
 esac
 
-sudo pacman -S ttf-jetbrains-mono-nerd kitty hyprlock hypridle wofi brightnessctl pamixer dunst libnotify jq fastfetch kitty mpv easyeffects ladspa pipewire lsp-plugins pulsemixer gst-plugin-pipewire pipewire-alsa pipewire-jack wireplumber pipewire-pulse libvdpau-va-gl swww waybar wlsunset udiskie blueman wlr-randr xdg-desktop-portal-hyprland xdg-desktop-portal-gtk 
+sudo pacman -S ttf-jetbrains-mono-nerd kitty hyprlock hypridle wofi brightnessctl pamixer dunst libnotify jq fastfetch kitty mpv easyeffects ladspa pipewire lsp-plugins pulsemixer gst-plugin-pipewire pipewire-alsa pipewire-jack wireplumber pipewire-pulse swww waybar wlsunset udiskie blueman wlr-randr xdg-desktop-portal-hyprland xdg-desktop-portal-gtk 
 echo    "--------------------------------------------------------"
 read -p    "->] Install Chaotic-AUR [Y/n] : " chaur
 echo    "--------------------------------------------------------"
