@@ -52,4 +52,4 @@ fi
 esac
 sudo pacman -S chaotic-aur/hyprland
 sudo pacman -S ttf-jetbrains-mono-nerd kitty hyprlock hypridle wofi brightnessctl pamixer dunst libnotify jq fastfetch kitty mpv easyeffects ladspa pipewire lsp-plugins pulsemixer gst-plugin-pipewire pipewire-alsa pipewire-jack wireplumber pipewire-pulse swww waybar wlsunset udiskie blueman wlr-randr xdg-desktop-portal-hyprland xdg-desktop-portal-gtk 
-
+sudo systemctl enable --global pipewire pipewire-pulse
