@@ -3,7 +3,7 @@ read -p    "->] Install Intel Package [Y/n] : " intelpkg
 echo    "--------------------------------------------------------"
 case $intelpkg in
 Y|y|Yes|YES|yes|*)
-vulkan-intel intel-ucode intel-media-driver intel-media-sdk
+sudo pacman -S vulkan-intel intel-ucode intel-media-driver intel-media-sdk
 # Teks yang ingin ditambahkan
 block_to_add=$(cat <<EOF
 options i915 enable_guc=3
