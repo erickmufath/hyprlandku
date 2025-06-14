@@ -15,7 +15,7 @@ config_file="/etc/modprobe.d/i915.conf"
 if ! grep -Fxq "options i915 enable_guc=3" "$config_file"; then
     echo "Menambahkan GUC intel i915 ke $config_file agar aktif..."
     echo "$block_to_add" | sudo tee -a "$config_file" > /dev/null
-    mkinitcpio -p linux
+    sudo mkinitcpio -p linux
 else
     echo "Blok GUC Intel i915 sudah ada di $config_file. Tidak ditambahkan lagi."
 fi
