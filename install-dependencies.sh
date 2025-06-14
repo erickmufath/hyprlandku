@@ -30,7 +30,9 @@ read -p    "->] Install Intel Package [Y/n] : " intelpkg
 echo    "--------------------------------------------------------"
 case $intelpkg in
 Y|y|Yes|YES|yes)
-sudo pacman -S vulkan-intel intel-ucode intel-media-driver intel-media-sdk intel-gpu-tools libva-intel-driver intel-hybrid-codec-driver-git libvpl
+sudo pacman -S vulkan-intel intel-ucode intel-media-driver intel-media-sdk intel-gpu-tools libva-intel-driver intel-hybrid-codec-driver-git libvpl libva-utils
+echo 'export LIBVA_DRIVER_NAME=iHD' >> ~/.bashrc
+source ~/.bashrc
 # Teks yang ingin ditambahkan
 block_to_add=$(cat <<EOF
 options i915 enable_guc=3
