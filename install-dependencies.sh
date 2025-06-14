@@ -2,7 +2,7 @@ echo    "--------------------------------------------------------"
 read -p    "->] Install Intel Package [Y/n] : " intelpkg
 echo    "--------------------------------------------------------"
 case $intelpkg in
-Y|y|Yes|YES|yes|*)
+Y|y|Yes|YES|yes)
 sudo pacman -S vulkan-intel intel-ucode intel-media-driver intel-media-sdk
 # Teks yang ingin ditambahkan
 block_to_add=$(cat <<EOF
@@ -20,7 +20,7 @@ else
     echo "Blok GUC Intel i915 sudah ada di $config_file. Tidak ditambahkan lagi."
 fi
 ;;
-N|n|No|NO|no)
+*)
 ;;
 esac
 
@@ -29,7 +29,7 @@ echo    "--------------------------------------------------------"
 read -p    "->] Install Chaotic-AUR [Y/n] : " chaur
 echo    "--------------------------------------------------------"
 case $chaur in
-Y|y|Yes|YES|yes|*)
+Y|y|Yes|YES|yes)
 # Teks yang ingin ditambahkan
 block_to_add=$(cat <<EOF
 [chaotic-aur]
@@ -48,7 +48,7 @@ else
     echo "Blok chaotic-aur sudah ada di $config_file. Tidak ditambahkan lagi."
 fi
 ;;
-N|n|No|NO|no)
+*)
 ;;
 esac
 
