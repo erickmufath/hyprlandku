@@ -30,7 +30,7 @@ read -p    "->] Install Intel Package [Y/n] : " intelpkg
 echo    "--------------------------------------------------------"
 case $intelpkg in
 Y|y|Yes|YES|yes)
-sudo pacman -S vulkan-intel intel-ucode intel-media-driver intel-media-sdk intel-gpu-tools libva-intel-driver intel-hybrid-codec-driver-git libvpl libva-utils
+sudo pacman -S vulkan-intel intel-ucode intel-media-driver intel-media-sdk intel-gpu-tools libva-intel-driver intel-hybrid-codec-driver-git libvpl libva-utils --needed
 echo 'export LIBVA_DRIVER_NAME=iHD' >> ~/.bashrc
 source ~/.bashrc
 # Teks yang ingin ditambahkan
@@ -52,6 +52,6 @@ fi
 *)
 ;;
 esac
-sudo pacman -S chaotic-aur/hyprland
-sudo pacman -S ttf-jetbrains-mono-nerd kitty hyprlock hypridle wofi brightnessctl pamixer dunst libnotify jq fastfetch kitty mpv easyeffects ladspa pipewire lsp-plugins pulsemixer gst-plugin-pipewire pipewire-alsa pipewire-jack wireplumber pipewire-pulse swww waybar wlsunset udiskie blueman wlr-randr xdg-desktop-portal-hyprland xdg-desktop-portal-gtk 
+sudo pacman -S chaotic-aur/hyprland --needed
+sudo pacman -S ttf-jetbrains-mono-nerd kitty hyprutils hyprlock hypridle wofi brightnessctl pamixer dunst libnotify jq fastfetch kitty mpv easyeffects ladspa pipewire lsp-plugins pulsemixer gst-plugin-pipewire pipewire-alsa pipewire-jack wireplumber pipewire-pulse swww waybar wlsunset udiskie blueman wlr-randr xdg-desktop-portal-hyprland xdg-desktop-portal-gtk --needed
 sudo systemctl enable --global pipewire pipewire-pulse
