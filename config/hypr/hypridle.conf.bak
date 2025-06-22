@@ -1,0 +1,26 @@
+general {
+    lock_cmd = hyprlock                         # Perintah untuk mengunci layar saat idle
+    before_sleep_cmd = hyprlock                 # Jalankan hyprlock sebelum sistem tidur
+    after_sleep_cmd = loginctl unlock-session   # Perintah setelah sistem bangun dari tidur
+    ignore_wayland_inhibit = false		# Menghormati Wayland protocol idle inhibitors (direkomendasikan)
+    ignore_dbus_inhibit = false                 # Jangan abaikan aplikasi yang minta non-idle
+    ignore_systemd_inhibit = false		# Menghormati systemd-inhibit --what=idle inhibitors
+	# Mode inhibisi tidur:
+    	# 0 - disable: Menonaktifkan inhibisi tidur.
+    	# 1 - normal: Sistem menunggu hingga before_sleep_cmd dijalankan.
+    	# 2 - auto: Memilih antara 3 atau 1 tergantung pada apakah hypridle mendeteksi bahwa Anda ingin meluncurkan hyprlock sebelum tidur.
+    	# 3 - lock notify: Sistem menunggu hingga sesi dikunci oleh aplikasi lock screen.
+    inhibit_sleep = 2 # Atau 3, tergantung preferensi Anda
+}
+
+listener {
+    timeout = 300                               # Timeout 300 detik (5 menit)
+    on-timeout = hyprlock                       # Jalankan hyprlock saat idle 5 menit
+    on-resume = notify-send "Welcome back!"     # Tampilkan notifikasi saat kembali dari idle
+}
+
+listener {
+    timeout = 600                               # Timeout 600 detik (10 menit)
+    on-timeout = systemctl suspend              # Tidurkan sistem saat idle 10 menit
+}
+
