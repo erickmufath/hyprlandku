@@ -37,7 +37,7 @@ sudo pacman-key --refresh-keys --keyserver hkps://keyserver.ubuntu.com
 ;;
 esac
 
-sudo pacman -Syu
+sudo pacman -Syu --needed
 
 if fastfetch | grep -q "CPU : Intel"; then
 echo    "--------------------------------------------------------"
@@ -75,7 +75,7 @@ fi
 EOF
 )
 # File konfigurasi yang ditarget
-config_file_hypr="~/.bash_profile"
+config_file_hypr=".bash_profile"
 # Cek apakah blok sudah ada
 if ! grep -Fxq "exec Hyprland" "$config_file_hypr"; then
     echo "Menambahkan Autorun Hyprland ke $config_file_hypr"
@@ -97,7 +97,7 @@ EOF
 # File konfigurasi yang ditarget
 config_file_dns="/etc/systemd/resolved.conf"
 # Cek apakah blok sudah ada
-if ! grep -Fxq "1dot1do1dot1" "$config_file_dns"; then
+if ! grep -Fxq "94.140.14.14" "$config_file_dns"; then
     echo "Menambahkan Pengaturan DNS ke $config_file_dns"
     echo "$block_to_add_dns" | sudo tee -a "$config_file_dns" > /dev/null
     sudo mkinitcpio -p linux
