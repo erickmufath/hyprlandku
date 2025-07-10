@@ -77,7 +77,7 @@ EOF
 # File konfigurasi yang ditarget
 config_file_hypr=".bash_profile"
 # Cek apakah blok sudah ada
-if ! grep -Fxq "exec Hyprland" "$config_file_hypr"; then
+if ! grep -qF "exec Hyprland" "$config_file_hypr"; then
     echo "Menambahkan Autorun Hyprland ke $config_file_hypr"
     echo "$block_to_add_hypr" | sudo tee -a "$config_file_hypr" > /dev/null
 else
@@ -96,7 +96,7 @@ EOF
 # File konfigurasi yang ditarget
 config_file_dns="/etc/systemd/resolved.conf"
 # Cek apakah blok sudah ada
-if ! grep -Fxq "1dot1do1dot1" "$config_file_dns"; then
+if ! grep -qF "1dot1do1dot1" "$config_file_dns"; then
     echo "Menambahkan Pengaturan DNS ke $config_file_dns"
     echo "$block_to_add_dns" | sudo tee -a "$config_file_dns" > /dev/null
 else
