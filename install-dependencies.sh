@@ -2,7 +2,7 @@ echo    "--------------------------------------------------------"
 read -p    "->] Install Chaotic-AUR [Y/n] : " chaur
 echo    "--------------------------------------------------------"
 case $chaur in
-*)
+""|[Yy]*)
 # Teks yang ingin ditambahkan
 block_to_add_chaotic=$(cat <<EOF
 [chaotic-aur]
@@ -21,7 +21,7 @@ else
     echo "Blok chaotic-aur sudah ada di $config_file_chaotic. Tidak ditambahkan lagi."
 fi
 ;;
-N|n|NO|No|no)
+[Nn]*|NO|No|no)
 ;;
 esac
 
@@ -30,10 +30,10 @@ echo    "--------------------------------------------------------"
 read -p    "->] Update Keyring [Y/n] : " keyring
 echo    "--------------------------------------------------------"
 case $keyring in
-*)
+""|[Yy]*)
 sudo pacman-key --refresh-keys --keyserver hkps://keyserver.ubuntu.com
 ;;
-N|n|NO|No|no)
+[Nn]*|NO|No|no)
 ;;
 esac
 
@@ -42,7 +42,7 @@ echo    "--------------------------------------------------------"
 read -p    "->] Install Intel Package [Y/n] : " intelpkg
 echo    "--------------------------------------------------------"
 case $intelpkg in
-*)
+""|[Yy]*)
 sudo pacman -S vulkan-intel intel-ucode intel-media-driver intel-media-sdk intel-gpu-tools libva-intel-driver intel-hybrid-codec-driver-git libvpl libva-utils --needed
 echo 'export LIBVA_DRIVER_NAME=iHD' >> ~/.bashrc
 source ~/.bashrc
@@ -62,7 +62,7 @@ else
     echo "Blok GUC Intel i915 sudah ada di $config_file_intel. Tidak ditambahkan lagi."
 fi
 ;;
-N|n|NO|No|no)
+[Nn]*|NO|No|no)
 ;;
 esac
 
@@ -87,7 +87,23 @@ if ! grep -Fxq "exec Hyprland" "$config_file_hypr"; then
 else
     echo "Autorun sudah ada di $config_file_hypr. Tidak ditambahkan lagi."
 fi
-;;
-N|n|NO|No|no)
-;;
-esac
+
+# Teks yang ingin ditambahkan
+block_to_add_dns=$(cat <<EOF
+[Resolve]
+ DNS=94.140.14.14#dns.adguard.com 1.1.1.1#1dot1do1dot1.cloudflare-dns.com
+ FallbackDNS=8.8.8.8#dns.google 1.0.0.1#cloudflare-dns.com
+ DNSOverTLS=yes
+ DNSSEC=yes
+EOF
+)
+# File konfigurasi yang ditarget
+config_file_dns="/etc/systemd/resolved.conf"
+# Cek apakah blok sudah ada
+if ! grep -Fxq "1dot1do1dot1" "$config_file_dns"; then
+    echo "Menambahkan Pengaturan DNS ke $config_file_dns"
+    echo "$block_to_add_dns" | sudo tee -a "$config_file_dns" > /dev/null
+    sudo mkinitcpio -p linux
+else
+    echo "DNS sudah diatur di $config_file_dns. Tidak ditambahkan lagi."
+fi
