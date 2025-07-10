@@ -69,7 +69,7 @@ sudo systemctl enable --global pipewire pipewire-pulse
 
 # Teks yang ingin ditambahkan
 block_to_add_hypr=$(cat <<EOF
-if [[ -z $DISPLAY && $(tty) = /dev/tty1 ]]; then
+if [[ -z \$DISPLAY && \$(tty) = /dev/tty1 ]]; then
     exec Hyprland
 fi
 EOF
@@ -80,7 +80,6 @@ config_file_hypr=".bash_profile"
 if ! grep -Fxq "exec Hyprland" "$config_file_hypr"; then
     echo "Menambahkan Autorun Hyprland ke $config_file_hypr"
     echo "$block_to_add_hypr" | sudo tee -a "$config_file_hypr" > /dev/null
-    sudo mkinitcpio -p linux
 else
     echo "Autorun sudah ada di $config_file_hypr. Tidak ditambahkan lagi."
 fi
@@ -97,10 +96,9 @@ EOF
 # File konfigurasi yang ditarget
 config_file_dns="/etc/systemd/resolved.conf"
 # Cek apakah blok sudah ada
-if ! grep -Fxq "94.140.14.14" "$config_file_dns"; then
+if ! grep -Fxq "1dot1do1dot1" "$config_file_dns"; then
     echo "Menambahkan Pengaturan DNS ke $config_file_dns"
     echo "$block_to_add_dns" | sudo tee -a "$config_file_dns" > /dev/null
-    sudo mkinitcpio -p linux
 else
     echo "DNS sudah diatur di $config_file_dns. Tidak ditambahkan lagi."
 fi
