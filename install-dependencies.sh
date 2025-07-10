@@ -38,12 +38,12 @@ sudo pacman-key --refresh-keys --keyserver hkps://keyserver.ubuntu.com
 esac
 
 sudo pacman -Syu
+
+if fastfetch | grep -q "CPU : Intel"; then
 echo    "--------------------------------------------------------"
-read -p    "->] Install Intel Package [Y/n] : " intelpkg
+echo    "->] Installing Intel Package..."
 echo    "--------------------------------------------------------"
-case $intelpkg in
-""|[Yy]*)
-sudo pacman -S vulkan-intel intel-ucode intel-media-driver intel-media-sdk intel-gpu-tools libva-intel-driver intel-hybrid-codec-driver-git libvpl libva-utils --needed
+sudo pacman -S vulkan-intel intel-ucode intel-media-driver intel-media-sdk intel-gpu-tools libva-intel-driver intel-hybrid-codec-driver-git libvpl libva-utils --noconfirm --needed
 echo 'export LIBVA_DRIVER_NAME=iHD' >> ~/.bashrc
 source ~/.bashrc
 # Teks yang ingin ditambahkan
@@ -61,10 +61,7 @@ if ! grep -Fxq "options i915 enable_guc=3" "$config_file_intel"; then
 else
     echo "Blok GUC Intel i915 sudah ada di $config_file_intel. Tidak ditambahkan lagi."
 fi
-;;
-[Nn]*|NO|No|no)
-;;
-esac
+fi
 
 sudo pacman -S chaotic-aur/hyprland --needed
 sudo pacman -S ttf-jetbrains-mono-nerd kitty hyprutils hyprlock hypridle wofi brightnessctl pamixer dunst libnotify jq fastfetch kitty mpv easyeffects ladspa pipewire lsp-plugins pulsemixer gst-plugin-pipewire pipewire-alsa pipewire-jack wireplumber pipewire-pulse swww waybar wlsunset udiskie blueman wlr-randr xdg-desktop-portal-hyprland xdg-desktop-portal-gtk sof-firmware --needed
