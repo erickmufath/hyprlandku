@@ -1,6 +1,10 @@
 echo    "--------------------------------------------------------"
 read -p    "->] Install Chaotic-AUR [Y/n] : " chaur
 echo    "--------------------------------------------------------"
+echo    "--------------------------------------------------------"
+read -p    "->] Update Keyring [Y/n] : " keyring
+echo    "--------------------------------------------------------"
+
 case $chaur in
 ""|[Yy]*)
 # Teks yang ingin ditambahkan
@@ -18,7 +22,7 @@ if ! grep -Fxq "[chaotic-aur]" "$config_file_chaotic"; then
     sudo pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
     sudo pacman-key --lsign-key 3056513887B78AEB
 else
-    echo "Blok chaotic-aur sudah ada di $config_file_chaotic. Tidak ditambahkan lagi."
+    echo "\n]> Blok chaotic-aur sudah ada di $config_file_chaotic. Tidak ditambahkan lagi. <[\n"
 fi
 ;;
 [Nn]*|NO|No|no)
@@ -26,9 +30,6 @@ fi
 esac
 
 
-echo    "--------------------------------------------------------"
-read -p    "->] Update Keyring [Y/n] : " keyring
-echo    "--------------------------------------------------------"
 case $keyring in
 ""|[Yy]*)
 sudo pacman-key --refresh-keys --keyserver hkps://keyserver.ubuntu.com
@@ -37,7 +38,7 @@ sudo pacman-key --refresh-keys --keyserver hkps://keyserver.ubuntu.com
 ;;
 esac
 
-sudo pacman -Syu --needed
+sudo pacman -Syu --noconfirm --needed
 
 if fastfetch | grep -q "CPU : Intel"; then
 echo    "--------------------------------------------------------"
@@ -59,12 +60,11 @@ if ! grep -Fxq "options i915 enable_guc=3" "$config_file_intel"; then
     echo "$block_to_add_intel" | sudo tee -a "$config_file_intel" > /dev/null
     sudo mkinitcpio -p linux
 else
-    echo "Blok GUC Intel i915 sudah ada di $config_file_intel. Tidak ditambahkan lagi."
+    echo "\n]> Blok GUC Intel i915 sudah ada di $config_file_intel. Tidak ditambahkan lagi. <[\n"
 fi
 fi
 
-sudo pacman -S chaotic-aur/hyprland --needed
-sudo pacman -S ttf-jetbrains-mono-nerd kitty hyprutils hyprlock hypridle wofi brightnessctl pamixer dunst libnotify jq fastfetch kitty mpv easyeffects ladspa pipewire lsp-plugins pulsemixer gst-plugin-pipewire pipewire-alsa pipewire-jack wireplumber pipewire-pulse swww waybar wlsunset udiskie blueman wlr-randr xdg-desktop-portal-hyprland xdg-desktop-portal-gtk sof-firmware --needed
+sudo pacman -S hyprland ttf-jetbrains-mono-nerd kitty hyprutils hyprlock hypridle wofi brightnessctl pamixer dunst libnotify jq fastfetch kitty mpv easyeffects ladspa pipewire lsp-plugins pulsemixer gst-plugin-pipewire pipewire-alsa pipewire-jack wireplumber pipewire-pulse swww waybar wlsunset udiskie blueman wlr-randr xdg-desktop-portal-hyprland xdg-desktop-portal-gtk sof-firmware --noconfirm --needed
 sudo systemctl enable --global pipewire pipewire-pulse
 
 # Teks yang ingin ditambahkan
@@ -81,7 +81,7 @@ if ! grep -qF "exec Hyprland" "$config_file_hypr"; then
     echo "Menambahkan Autorun Hyprland ke $config_file_hypr"
     echo "$block_to_add_hypr" | sudo tee -a "$config_file_hypr" > /dev/null
 else
-    echo "Autorun sudah ada di $config_file_hypr. Tidak ditambahkan lagi."
+    echo "\n]> Autorun sudah ada di $config_file_hypr. Tidak ditambahkan lagi. <[\n"
 fi
 
 # Teks yang ingin ditambahkan
@@ -100,5 +100,5 @@ if ! grep -qF "1dot1do1dot1" "$config_file_dns"; then
     echo "Menambahkan Pengaturan DNS ke $config_file_dns"
     echo "$block_to_add_dns" | sudo tee -a "$config_file_dns" > /dev/null
 else
-    echo "DNS sudah diatur di $config_file_dns. Tidak ditambahkan lagi."
+    echo "\n]> DNS sudah diatur di $config_file_dns. Tidak ditambahkan lagi. <[\n"
 fi
