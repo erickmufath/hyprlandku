@@ -102,3 +102,18 @@ if ! grep -qF "1dot1do1dot1" "$config_file_dns"; then
 else
     echo "\n]> DNS sudah diatur di $config_file_dns. Tidak ditambahkan lagi. <[\n"
 fi
+
+#Fix Unstable Wifi
+block_to_add_macw=$(cat <<EOF
+[device]
+wifi.scan-rand-mac-address=no
+)
+# File konfigurasi yang ditarget
+config_file_macw="/etc/NetworkManager/NetworkManager.conf"
+# Cek apakah blok sudah ada
+if ! grep -qF "wifi.scan-rand" "$config_file_macw"; then
+    echo "Menonaktifkan Alamat MAC Wifi Acak\ndengan Menambahkan Pengaturan di $config_file_macw"
+    echo "$block_to_add_macw" | sudo tee -a "$config_file_macw" > /dev/null
+else
+    echo "\n]> MAC Wifi sudah diatur di $config_file_macw. Tidak ditambahkan lagi. <[\n"
+fi
