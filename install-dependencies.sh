@@ -1,9 +1,7 @@
 echo    "--------------------------------------------------------"
 read -p    "->] Install Chaotic-AUR [Y/n] : " chaur
 echo    "--------------------------------------------------------"
-echo    "--------------------------------------------------------"
 read -p    "->] Update Keyring [Y/n] : " keyring
-echo    "--------------------------------------------------------"
 
 case $chaur in
 ""|[Yy]*)
@@ -22,7 +20,8 @@ if ! grep -Fxq "[chaotic-aur]" "$config_file_chaotic"; then
     sudo pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
     sudo pacman-key --lsign-key 3056513887B78AEB
 else
-    echo "\n]> Blok chaotic-aur sudah ada di $config_file_chaotic. Tidak ditambahkan lagi. <[\n"
+    echo    "--------------------------------------------------------"
+    echo "]> Blok chaotic-aur sudah ada di $config_file_chaotic. Tidak ditambahkan lagi. <["
 fi
 ;;
 [Nn]*|NO|No|no)
@@ -52,7 +51,6 @@ fi
 
 echo    "--------------------------------------------------------"
 echo    "->] Installing Intel Package..."
-echo    "--------------------------------------------------------"
 sudo pacman -S vulkan-intel intel-ucode intel-media-driver intel-media-sdk intel-gpu-tools libva-intel-driver intel-hybrid-codec-driver-git libvpl libva-utils --noconfirm --needed
 echo 'export LIBVA_DRIVER_NAME=iHD' >> ~/.bashrc
 source ~/.bashrc
@@ -69,7 +67,8 @@ if ! grep -Fxq "options i915 enable_guc=3" "$config_file_intel"; then
     echo "$block_to_add_intel" | sudo tee -a "$config_file_intel" > /dev/null
     sudo mkinitcpio -p linux
 else
-    echo "\n]> Blok GUC Intel i915 sudah ada di $config_file_intel. Tidak ditambahkan lagi. <[\n"
+    echo    "--------------------------------------------------------"
+    echo "]> Blok GUC Intel i915 sudah ada di $config_file_intel. Tidak ditambahkan lagi. <["
 fi
 fi
 
@@ -90,7 +89,8 @@ if ! grep -qF "exec Hyprland" "$config_file_hypr"; then
     echo "Menambahkan Autorun Hyprland ke $config_file_hypr"
     echo "$block_to_add_hypr" | sudo tee -a "$config_file_hypr" > /dev/null
 else
-    echo "\n]> Autorun sudah ada di $config_file_hypr. Tidak ditambahkan lagi. <[\n"
+    echo    "--------------------------------------------------------"
+    echo "]> Autorun sudah ada di $config_file_hypr. Tidak ditambahkan lagi. <["
 fi
 
 # Teks yang ingin ditambahkan
@@ -109,7 +109,8 @@ if ! grep -qF "1dot1do1dot1" "$config_file_dns"; then
     echo "Menambahkan Pengaturan DNS ke $config_file_dns"
     echo "$block_to_add_dns" | sudo tee -a "$config_file_dns" > /dev/null
 else
-    echo "\n]> DNS sudah diatur di $config_file_dns. Tidak ditambahkan lagi. <[\n"
+    echo    "--------------------------------------------------------"
+    echo "]> DNS sudah diatur di $config_file_dns. Tidak ditambahkan lagi. <["
 fi
 
 #Fix Unstable Wifi
@@ -124,5 +125,6 @@ if ! grep -qF "wifi.scan-rand" "$config_file_macw"; then
     echo "Menonaktifkan Alamat MAC Wifi Acak\ndengan Menambahkan Pengaturan di $config_file_macw"
     echo "$block_to_add_macw" | sudo tee -a "$config_file_macw" > /dev/null
 else
-    echo "\n]> MAC Wifi sudah diatur di $config_file_macw. Tidak ditambahkan lagi. <[\n"
+    echo    "--------------------------------------------------------"
+    echo "]> MAC Wifi sudah diatur di $config_file_macw. Tidak ditambahkan lagi. <["
 fi
