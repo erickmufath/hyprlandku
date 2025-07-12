@@ -41,6 +41,15 @@ esac
 sudo pacman -Syu --noconfirm --needed
 
 if fastfetch | grep -q "CPU : Intel"; then
+
+#Fresh Reinstall Intel Package
+if pacman -Q intel-media-sdk &>/dev/null; then
+pacman -Qs intel | grep "local/" | awk '{print $1}' | sed 's/local\///' > intel_packages.txt
+sudo pacman -Rdd $(cat intel_packages.txt) --noconfirm
+sudo pacman -Sy $(cat intel_packages.txt) --noconfirm
+rm intel_packages.txt
+fi
+
 echo    "--------------------------------------------------------"
 echo    "->] Installing Intel Package..."
 echo    "--------------------------------------------------------"
