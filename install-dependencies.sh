@@ -108,7 +108,6 @@ fi
 
 echo -e "\e[34m->] Installing Intel Package..."
 sudo pacman -S vulkan-intel intel-ucode intel-media-driver intel-media-sdk intel-gpu-tools libva-intel-driver intel-hybrid-codec-driver-git libvpl libva-utils --noconfirm --needed
-echo -e "\e[0m"
 # Teks yang ingin ditambahkan
 block_to_add_intel=$(cat <<EOF
 options i915 enable_guc=3
