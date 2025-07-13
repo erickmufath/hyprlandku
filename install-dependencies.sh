@@ -120,6 +120,12 @@ if ! grep -Fxq "options i915 enable_guc=3" "$config_file_intel"; then
     echo "Menambahkan GUC intel i915 ke $config_file_intel agar aktif..."
     echo "$block_to_add_intel" | sudo tee -a "$config_file_intel" > /dev/null
     echo 'export LIBVA_DRIVER_NAME=iHD' >> ~/.bashrc
+    mic_from_combojack=$(cat <<EOF
+    options snd-hda-intel model=aspire-headset-mic dmic_detect=0 probe_mask=1
+    EOF
+    )
+    sudo touch /etc/modprobe.d/alsa-base.conf
+    echo "$mic_from_combojack" | sudo tee -a "/etc/modprobe.d/alsa-base.conf" > /dev/null
     source ~/.bashrc
     sudo mkinitcpio -p linux
 else
