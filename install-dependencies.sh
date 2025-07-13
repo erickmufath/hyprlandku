@@ -35,14 +35,14 @@ error_exit() {
 # Fungsi untuk menjalankan perintah pacman dengan sudo.
 # Ini akan meminta password sudo jika kredensial belum di-cache.
 run_pacman_with_sudo() {
-    echo -e "\n\e[34m--- Menjalankan: sudo pacman $@ ---\e[0m"
+    echo -e "\n\e[34m--- Menjalankan: sudo pacman $@ ---\e[0m\n"
     sudo pacman "$@"
     return $? # Mengembalikan kode keluar dari perintah pacman
 }
 
 # --- Skrip Utama ---
 
-echo -e "\e[32mMemulai proses pembaruan sistem Arch Linux.\e[0m"
+echo -e "\n\e[32mMemulai proses pembaruan sistem Arch Linux.\e[0m"
 
 # Argumen default untuk pacman adalah -Syu (Sinkronisasi, Pembaruan, dan Pembersihan)
 PACMAN_DEFAULT_ARGS="-Syu"
@@ -108,8 +108,7 @@ fi
 
 echo -e "\e[34m->] Installing Intel Package..."
 sudo pacman -S vulkan-intel intel-ucode intel-media-driver intel-media-sdk intel-gpu-tools libva-intel-driver intel-hybrid-codec-driver-git libvpl libva-utils --noconfirm --needed
-echo 'export LIBVA_DRIVER_NAME=iHD' >> ~/.bashrc
-source ~/.bashrc
+echo -e "\e[0m"
 # Teks yang ingin ditambahkan
 block_to_add_intel=$(cat <<EOF
 options i915 enable_guc=3
@@ -121,6 +120,8 @@ config_file_intel="/etc/modprobe.d/i915.conf"
 if ! grep -Fxq "options i915 enable_guc=3" "$config_file_intel"; then
     echo "Menambahkan GUC intel i915 ke $config_file_intel agar aktif..."
     echo "$block_to_add_intel" | sudo tee -a "$config_file_intel" > /dev/null
+    echo 'export LIBVA_DRIVER_NAME=iHD' >> ~/.bashrc
+    source ~/.bashrc
     sudo mkinitcpio -p linux
 else
     intelech=$(echo -e "\e[32m--- Blok GUC Intel i915 sudah ada di $config_file_intel. Tidak ditambahkan lagi. ---\e[0m")
@@ -183,8 +184,8 @@ else
     wifimacech=$(echo -e "\e[32m--- MAC Wifi sudah diatur di $config_file_macw. Tidak ditambahkan lagi. ---\e[0m")
 fi
 
-$chaoech
-$intelech
-$autohyprech
-$dnsech
-$wifimacech
+echo $chaoech
+echo $intelech
+echo $autohyprech
+echo $dnsech
+echo $wifimacech
