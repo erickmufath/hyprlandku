@@ -124,12 +124,13 @@ if ! grep -Fxq "options i915 enable_guc=3" "$config_file_intel"; then
     options snd-hda-intel model=aspire-headset-mic dmic_detect=0 probe_mask=1
     EOF
     )
-    sudo touch /etc/modprobe.d/alsa-base.conf
-    echo "$mic_from_combojack" | sudo tee -a "/etc/modprobe.d/alsa-base.conf" > /dev/null
+    add_jackmic="/etc/modprobe.d/alsa-base.conf"
+    sudo touch 
+    echo "$mic_from_combojack" | sudo tee -a "$add_jackmic" > /dev/null
     source ~/.bashrc
     sudo mkinitcpio -p linux
 else
-    intelech=$(echo -e "\e[32m--- Blok GUC Intel i915 sudah ada di $config_file_intel. Tidak ditambahkan lagi. ---\e[0m")
+    intelech=$(echo -e "\e[32m--- Blok GUC Intel i915 sudah ada di $config_file_intel. Tidak ditambahkan lagi. ---\n--- Mic Combojack sudah diatur di $add_jackmic. Tidak ditambahkan lagi. ---\e[0m")
 fi
 fi
 
