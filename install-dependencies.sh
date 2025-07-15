@@ -96,7 +96,7 @@ fi
 
 ##
 
-if fastfetch | grep -q "CPU : Intel"; then
+if fastfetch | grep -q "CPU : Intel" && fastfetch | grep -q "GPU.*HD"; then
 
 #Fresh Reinstall Intel Package
 if pacman -Q intel-media-sdk &>/dev/null; then
