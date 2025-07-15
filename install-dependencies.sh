@@ -36,7 +36,7 @@ error_exit() {
 # Ini akan meminta password sudo jika kredensial belum di-cache.
 run_pacman_with_sudo() {
     echo -e "\n\e[34m--- Menjalankan: sudo pacman $@ ---\e[0m\n"
-    sudo pacman "$@"
+    sudo pacman "$@" --needed --noconfirm
     return $? # Mengembalikan kode keluar dari perintah pacman
 }
 
